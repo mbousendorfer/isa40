@@ -61,7 +61,10 @@ Les valeurs éditables se trouvent dans `src/config/appConfig.ts` :
 
 ```ts
 export const appConfig = {
+  paymentRecipientName: "M. BOUSENDORFER MATTHIEU",
+  bankName: "BoursoBank",
   iban: "FR76 XXXX XXXX XXXX XXXX XXXX XXX",
+  bic: "BOUS FRPP XXX",
   paypalUrl: "https://paypal.me/REMPLACER"
 };
 ```

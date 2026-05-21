@@ -2,12 +2,12 @@ import { useState } from "react";
 import { appConfig } from "../config/appConfig";
 
 export function PaymentInstructions() {
-  const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "error">("idle");
+  const [copyStatus, setCopyStatus] = useState<"idle" | "iban" | "bic" | "error">("idle");
 
-  const handleCopyIban = async () => {
+  const copyToClipboard = async (value: string, copied: "iban" | "bic") => {
     try {
-      await navigator.clipboard.writeText(appConfig.iban);
-      setCopyStatus("copied");
+      await navigator.clipboard.writeText(value);
+      setCopyStatus(copied);
       window.setTimeout(() => setCopyStatus("idle"), 2200);
     } catch {
       setCopyStatus("error");
@@ -25,19 +25,43 @@ export function PaymentInstructions() {
       </p>
 
       <div className="mt-6 rounded-3xl bg-white/10 p-4">
-        <p className="text-sm font-bold text-champagne">IBAN</p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <p className="text-sm font-bold text-champagne">Titulaire</p>
+            <p className="mt-2 text-base font-semibold">{appConfig.paymentRecipientName}</p>
+          </div>
+          <div>
+            <p className="text-sm font-bold text-champagne">Banque</p>
+            <p className="mt-2 text-base font-semibold">{appConfig.bankName}</p>
+          </div>
+        </div>
+
+        <p className="mt-5 text-sm font-bold text-champagne">IBAN</p>
         <p className="mt-2 break-all font-mono text-lg">{appConfig.iban}</p>
         <button
           type="button"
-          onClick={handleCopyIban}
+          onClick={() => copyToClipboard(appConfig.iban, "iban")}
           className="mt-4 rounded-full bg-white px-5 py-3 text-sm font-bold text-twilight transition hover:bg-champagne focus:outline-none focus:ring-4 focus:ring-white/30"
         >
           Copier l'IBAN
         </button>
+
+        <p className="mt-5 text-sm font-bold text-champagne">BIC / SWIFT</p>
+        <p className="mt-2 break-all font-mono text-lg">{appConfig.bic}</p>
+        <button
+          type="button"
+          onClick={() => copyToClipboard(appConfig.bic, "bic")}
+          className="mt-4 rounded-full bg-white px-5 py-3 text-sm font-bold text-twilight transition hover:bg-champagne focus:outline-none focus:ring-4 focus:ring-white/30"
+        >
+          Copier le BIC
+        </button>
+
         <p className="mt-3 min-h-5 text-sm font-semibold text-champagne" aria-live="polite">
-          {copyStatus === "copied"
+          {copyStatus === "iban"
             ? "IBAN copié."
-            : copyStatus === "error"
+            : copyStatus === "bic"
+              ? "BIC copié."
+              : copyStatus === "error"
               ? "Impossible de copier automatiquement."
               : ""}
         </p>
