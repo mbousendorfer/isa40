@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: theme("fontFamily.sans");
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.sparkle-field::before,
+.sparkle-field::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(143, 63, 80, 0.32) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(217, 156, 55, 0.42) 0 1.5px, transparent 2px);
+  background-position:
+    12% 18%,
+    78% 22%;
+  background-size:
+    128px 128px,
+    174px 174px;
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 78%);
+}
+
+.sparkle-field::after {
+  animation: shimmer 3.8s ease-in-out infinite;
+}
+
+.ticket-card {
+  position: relative;
+  width: min(88%, 420px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 2.25rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 249, 242, 0.72)),
+    radial-gradient(circle at 80% 15%, rgba(248, 232, 199, 0.8), transparent 34%);
+  padding: clamp(1.35rem, 5vw, 2rem);
+  box-shadow: 0 28px 80px rgba(80, 45, 52, 0.18);
+}
+
+.ticket-card::before,
+.ticket-card::after {
+  content: "";
+  position: absolute;
+  top: 42%;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 999px;
+  background: #f7d6d8;
+}
+
+.ticket-card::before {
+  left: -1.1rem;
+}
+
+.ticket-card::after {
+  right: -1.1rem;
+}
+
+.castle-mark {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.8fr 1fr 0.8fr;
+  align-items: end;
+  gap: 0.55rem;
+  margin: 2.25rem auto 0;
+  width: min(78%, 280px);
+  height: 160px;
+}
+
+.castle-mark span {
+  position: relative;
+  display: block;
+  border-radius: 1.25rem 1.25rem 0.45rem 0.45rem;
+  background: linear-gradient(180deg, #f8e8c7 0%, #d99c37 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+.castle-mark span::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -1.45rem;
+  width: 0;
+  height: 0;
+  transform: translateX(-50%);
+  border-left: 1.1rem solid transparent;
+  border-right: 1.1rem solid transparent;
+  border-bottom: 1.7rem solid #8f3f50;
+}
+
+.castle-mark span:nth-child(1) {
+  height: 82px;
+}
+
+.castle-mark span:nth-child(2) {
+  height: 126px;
+  background: linear-gradient(180deg, #f8dde3 0%, #8f3f50 100%);
+}
+
+.castle-mark span:nth-child(3) {
+  height: 98px;
+}
